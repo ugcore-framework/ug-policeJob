@@ -74,3 +74,60 @@ function UgDev.Functions.OpenLocker(station)
         end
     end)
 end
+
+function UgDev.Functions.PurchaseWeapon(data)
+    UgCore.Callbacks.TriggerCallback('ug-policeJob:Callback:PurchaseWeapon', function (cb)
+        UgCore.Functions.Notify(cb.title, cb.description, cb.type, 5000)
+    end, data)
+end
+
+function UgDev.Functions.OpenArmory(station)
+    local playerData = UgCore.Functions.GetPlayerData()
+    local grade = playerData.job.grade
+    
+    local elements = {
+        { unselectable = true, icon = 'fas fa-gun', title = Languages.GetTranslation('menu_armory_title') },
+    }
+
+    for _, armory in pairs(station.Armory) do
+        for _, weapon in pairs(armory.Weapons) do
+            if weapon.Grade <= grade then
+                if armory.UsePrices then
+                    elements[#elements + 1] = {
+                        icon = weapon.Icon,
+                        title = weapon.Label .. ' - ' .. weapon.Price .. '€',
+                        weapon = weapon.Name,
+                        label = weapon.Label,
+                        grade = weapon.Grade or 0,
+                        priceSystem = armory.UsePrices or false,
+                        price = weapon.Price or 0,
+                        account = armory.Account or 'cash'
+                    }
+                else
+                    elements[#elements + 1] = {
+                        icon = weapon.Icon,
+                        title = weapon.Label,
+                        weapon = weapon.Name,
+                        label = weapon.Label,
+                        grade = weapon.Grade or 0,
+                        priceSystem = armory.UsePrices or false,
+                        price = weapon.Price or 0,
+                        account = armory.Account or 'cash'
+                    }
+                end
+            end
+        end
+    end
+
+    UgCore.Functions.OpenContextMenu('right', elements, function (menu, element)
+        local data = {
+            weapon = element.weapon,
+            label = element.label,
+            grade = element.grade,
+            priceSystem = element.priceSystem,
+            price = element.price,
+            account = element.account
+        }
+        UgDev.Functions.PurchaseWeapon(data)
+    end)
+end

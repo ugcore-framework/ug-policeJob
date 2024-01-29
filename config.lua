@@ -31,16 +31,21 @@ Config.Stations = {
             }
         },
         Armory = {
-            UsePrices = false,                      -- Price System
-            Weapons = {
-                { 
-                    Name = 'weapon_combatpistol',   -- Weapon name to show.
-                    Grade = 0,                      -- Grade required to show.
-                    Price = 250                     -- Price to purchase.
-                }
-            },
-            Coords = { 
-                { vector3(452.4399, -980.1115, 30.6896) }
+            {
+                UsePrices = true,   -- Price System
+                Account = 'bank',   -- Account (cash, bank)
+                Radius = 2.5,       -- Radius of the locker zone.
+                Distance = 2.5,     -- Distance to interact with.
+                Coords = vector3(452.3931, -980.1600, 30.6896),
+                Weapons = {
+                    { 
+                        Name = 'weapon_combatpistol',   -- Weapon name to show.
+                        Label = 'Combat Pistol',        -- Weapon label to show.
+                        Icon = 'fas fa-gun',            -- Icon to show.
+                        Grade = 0,                      -- Grade required to show.
+                        Price = 250                     -- Price to purchase.
+                    }
+                },
             }
         },
         Uniforms = {

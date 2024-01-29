@@ -127,5 +127,35 @@ if Config.UseTarget then
             }
             exports['ox_target']:addBoxZone(policeDepartmentLockersOptions)
         end
+
+        -- Armories --
+        for _, armory in pairs(v.Armory) do
+            local policeDepartmentArmoryOptions = {
+                coords = armory.Coords,
+                radius = armory.Radius,
+                debug = false,
+                drawSprite = false,
+                options = {
+                    {
+                        name = 'ug-policeJob:Target:OpenArmory',
+                        icon = 'fa-solid fa-gun',
+                        label = Languages.GetTranslation('target_open_armory'),
+                        distance = armory.Distance,
+                        canInteract = function ()
+                            local playerData = UgCore.Functions.GetPlayerData()
+                            if playerData.job.name == 'police' then
+                                return true
+                            end
+                            return false
+                        end,
+                        onSelect = function ()
+                            local station = Config.Stations[k]
+                            UgDev.Functions.OpenArmory(station)
+                        end
+                    },
+                }
+            }
+            exports['ox_target']:addBoxZone(policeDepartmentArmoryOptions)
+        end
     end
 end
