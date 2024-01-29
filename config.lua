@@ -15,6 +15,7 @@ Config.Stations = {
         Name = 'Police Department',
         Duty = {
             { 
+                Jobs = { 'police', 'offpolice' },
                 Radius = 2.0,
                 Coords = vector3(440.0441, -975.1539, 31.5221)
             }

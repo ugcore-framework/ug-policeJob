@@ -18,13 +18,13 @@ UgCore.Callbacks.CreateCallback('ug-policeJob:Callback:ToggleDuty', function (so
         if string.match(jobName, 'off') then
             jobName = jobName:gsub('%off', '')
             player.Functions.SetJob(jobName, jobGrade)
-            cb(true)
+            cb(player.job)
         else
             jobName = 'off' .. jobName
             player.Functions.SetJob(jobName, jobGrade)
-            cb(true)
+            cb(player.job)
         end
     else 
-        cb(false) 
+        cb(nil) 
     end
 end)

@@ -81,13 +81,23 @@ if Config.UseTarget then
                             local playerData = UgCore.Functions.GetPlayerData()
                             local playerCoords = GetEntityCoords(playerPed)
                             local playerDistance = #(playerCoords - location.Coords)
-                            if playerData.job.name == 'police' and playerDistance <= location.Radius then
-                                return true
+                            for _, jobs in pairs(location.Jobs) do
+                                if playerData.job.name == jobs and playerDistance <= location.Radius then
+                                    return true
+                                end
                             end
                             return false
                         end,
                         onSelect = function ()
-                            TriggerEvent('ug-policeJob:Client:ToggleDuty')
+                            UgCore.Callbacks.TriggerCallback('ug-policeJob:Callback:ToggleDuty', function (cb)
+                                if cb then
+                                    if string.match(cb.name, 'off') then
+                                        UgCore.Functions.Notify('Police Department', Languages.GetTranslation('notification_on_duty'), 'success', 5000)    
+                                    else
+                                        UgCore.Functions.Notify('Police Department', Languages.GetTranslation('notification_off_duty'), 'error', 5000)    
+                                    end
+                                else return error('cb returned nil') end
+                            end)
                         end
                     },
                 }
