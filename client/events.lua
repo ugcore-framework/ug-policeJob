@@ -1,0 +1,5 @@
+RegisterNetEvent('ug-policeJob:Client:ToggleDuty', function ()
+    TriggerServerEvent('ug-policeJob:Server:ToggleDuty')
+    TriggerServerEvent('ug-policeJob:Server:UpdateCurrentCops')
+    TriggerServerEvent('ug-policeJob:Server:UpdateBlips')
+end)
