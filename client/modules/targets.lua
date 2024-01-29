@@ -4,7 +4,7 @@ if Config.UseTarget then
     -- Player Target Options --
     local playerTargetMenuOptions = {
         {
-            name = 'ug-policeJob:target:handcuffPlayer',
+            name = 'ug-policeJob:Target:HandcuffPlayer',
             icon = 'fa-solid fa-handcuffs',
             label = Languages.GetTranslation('target_handcuff_player'),
             canInteract = function ()
@@ -30,7 +30,7 @@ if Config.UseTarget then
     -- Vehicle Target Options --
     local vehicleTargetMenuOptions = {
         {
-            name = 'ug-policeJob:target:searchVehicleInformations',
+            name = 'ug-policeJob:Target:SearchVehicleInformations',
             icon = 'fa-solid fa-car',
             label = Languages.GetTranslation('target_search_vehicle_informations'),
             canInteract = function (entity)
@@ -46,7 +46,7 @@ if Config.UseTarget then
             onSelect = function (data)
                 if data then
                     local vehiclePlate = data.vehiclePlate
-                    UgCore.Callbacks.TriggerCallback('ug-policeJob:SearchVehicleInformations', function (vehicle)
+                    UgCore.Callbacks.TriggerCallback('ug-policeJob:Callback:SearchVehicleInformations', function (vehicle)
                         if vehicle.owner then
                             UgCore.Functions.Notify('Police Radio', 'Vehicle is owned by ' .. vehicle.owner.name .. ' (plate: ' .. vehicle.plate .. ')', 'info', 5000)    
                         else
@@ -63,46 +63,69 @@ if Config.UseTarget then
     -- Police Department --
     -----------------------
 
-    -- Toggle Duty --
-    for _, v in pairs(Config.Stations) do
+    for k, v in pairs(Config.Stations) do
+        
+        -- Toggle Duty --
         for _, location in pairs(v.Duty) do
             local policeDepartmentToggleDutyOptions = {
-                coords = location.Coords,
-                radius = location.Radius,
+                {
+                    name = 'ug-policeJob:Target:ToggleDuty',
+                    icon = 'fa-solid fa-clipboard',
+                    label = Languages.GetTranslation('target_toggle_duty'),
+                    distance = location.Distance,
+                    canInteract = function ()
+                        local playerData = UgCore.Functions.GetPlayerData()
+                        for _, job in pairs(location.Jobs) do
+                            if playerData.job.name == job then
+                                return true
+                            end
+                        end
+                        return false
+                    end,
+                    onSelect = function ()
+                        UgCore.Callbacks.TriggerCallback('ug-policeJob:Callback:ToggleDuty', function (cb)
+                            if cb then
+                                if string.match(cb.name, 'off') then
+                                    UgCore.Functions.Notify('Police Department', Languages.GetTranslation('notification_on_duty'), 'success', 5000)    
+                                else
+                                    UgCore.Functions.Notify('Police Department', Languages.GetTranslation('notification_off_duty'), 'error', 5000)    
+                                end
+                            else return error('cb returned nil') end
+                        end)
+                    end
+                },
+            }
+            exports['ox_target']:addModel(location.Target.Model, policeDepartmentToggleDutyOptions)
+        end
+
+        -- Lockers --
+        for _, locker in pairs(v.Lockers) do
+            local policeDepartmentLockersOptions = {
+                coords = locker.Coords,
+                radius = locker.Radius,
                 debug = false,
                 drawSprite = false,
                 options = {
                     {
-                        name = 'ug-policeJob:target:policeDepartmentToggleDuty',
-                        icon = 'fa-solid fa-clipboard',
-                        label = Languages.GetTranslation('target_police_department_toggle_duty'),
+                        name = 'ug-policeJob:Target:OpenLocker',
+                        icon = 'fa-solid fa-shirt',
+                        label = Languages.GetTranslation('target_open_locker'),
+                        distance = locker.Distance,
                         canInteract = function ()
-                            local playerPed = PlayerPedId()
                             local playerData = UgCore.Functions.GetPlayerData()
-                            local playerCoords = GetEntityCoords(playerPed)
-                            local playerDistance = #(playerCoords - location.Coords)
-                            for _, jobs in pairs(location.Jobs) do
-                                if playerData.job.name == jobs and playerDistance <= location.Radius then
-                                    return true
-                                end
+                            if playerData.job.name == 'police' then
+                                return true
                             end
                             return false
                         end,
                         onSelect = function ()
-                            UgCore.Callbacks.TriggerCallback('ug-policeJob:Callback:ToggleDuty', function (cb)
-                                if cb then
-                                    if string.match(cb.name, 'off') then
-                                        UgCore.Functions.Notify('Police Department', Languages.GetTranslation('notification_on_duty'), 'success', 5000)    
-                                    else
-                                        UgCore.Functions.Notify('Police Department', Languages.GetTranslation('notification_off_duty'), 'error', 5000)    
-                                    end
-                                else return error('cb returned nil') end
-                            end)
+                            local station = Config.Stations[k]
+                            UgDev.Functions.OpenLocker(station)
                         end
                     },
                 }
             }
-            exports['ox_target']:addBoxZone(policeDepartmentToggleDutyOptions)
+            exports['ox_target']:addBoxZone(policeDepartmentLockersOptions)
         end
     end
 end
