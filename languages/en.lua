@@ -20,6 +20,7 @@ Language['en'] = {
     ['notification_no_money'] = 'You don\'t have money to buy this!',
     ['notification_vehicle_spawned'] = 'You took out a vehicle!',
     ['notification_vehicle_in_spawn_location'] = 'There is a vehicle in the spawn location!',
+    ['notification_vehicle_stored'] = 'You returned the vehicle to the garage!',
     
     -- Text UI --
     ['textUI_press_to_store_vehicle'] = '[E] - Store Vehicle',

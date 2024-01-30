@@ -1,7 +1,7 @@
 -- Blips --
 CreateThread(function ()
     for _, v in pairs(Config.Stations) do
-        if v.Blip.Enable then
+        if v.Blip.Enabled then
             local blip = AddBlipForCoord(v.Blip.Coords.x, v.Blip.Coords.y, v.Blip.Coords.z)
             SetBlipSprite(blip, v.Blip.Sprite)
             SetBlipAsShortRange(blip, true)

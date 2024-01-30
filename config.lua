@@ -13,6 +13,13 @@ Config.Items = {
 Config.Stations = {
     {
         Name = 'Police Department',
+        Blip = {
+            Enabled = true,
+            Coords = vector3(441.2831, -983.0054, 30.6896),
+            Sprite = 60,
+            Scale = 0.8,
+            Color = 29
+        },
         Duty = {
             { 
                 Jobs = { 'police', 'offpolice' },   -- Jobs that can use the duty system.
@@ -261,13 +268,6 @@ Config.Stations = {
                     }
                 }
             }
-        },
-        Blip = {
-            Enable = true,
-            Coords = vector3(441.2831, -983.0054, 30.6896),
-            Sprite = 60,
-            Scale = 0.8,
-            Color = 29
         }
     }
 }

@@ -27,6 +27,7 @@ CreateThread(function ()
                                     if IsControlJustReleased(0, 51) then
                                         UgCore.Functions.DeleteVehicle(playerVehicle)
                                         UgCore.Functions.HideUI()
+                                        UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_vehicle_stored'), 'success', 5000)
                                     end
                                 else
                                     UgCore.Functions.HideUI()
