@@ -9,7 +9,7 @@ if Config.UseTarget then
             label = Languages.GetTranslation('target_handcuff_player'),
             canInteract = function ()
                 local playerData = UgCore.Functions.GetPlayerData()
-                if playerData.job.name == 'police' then
+                if playerData.job and playerData.job.name == 'police' then
                     return true
                 end
                 return false
@@ -35,7 +35,7 @@ if Config.UseTarget then
             label = Languages.GetTranslation('target_search_vehicle_informations'),
             canInteract = function (entity)
                 local playerData = UgCore.Functions.GetPlayerData()
-                if playerData.job.name == 'police' then
+                if playerData.job and playerData.job.name == 'police' then
                     local data = {
                         vehiclePlate = GetVehicleNumberPlateText(entity)
                     }
@@ -113,7 +113,7 @@ if Config.UseTarget then
                         distance = locker.Distance,
                         canInteract = function ()
                             local playerData = UgCore.Functions.GetPlayerData()
-                            if playerData.job.name == 'police' then
+                            if playerData.job and playerData.job.name == 'police' then
                                 return true
                             end
                             return false
@@ -143,7 +143,7 @@ if Config.UseTarget then
                         distance = armory.Distance,
                         canInteract = function ()
                             local playerData = UgCore.Functions.GetPlayerData()
-                            if playerData.job.name == 'police' then
+                            if playerData.job and playerData.job.name == 'police' then
                                 return true
                             end
                             return false
@@ -174,7 +174,7 @@ if Config.UseTarget then
                             distance = garage.Distance,
                             canInteract = function ()
                                 local playerData = UgCore.Functions.GetPlayerData()
-                                if playerData.job.name == 'police' then
+                                if playerData.job and playerData.job.name == 'police' then
                                     return true
                                 end
                                 return false

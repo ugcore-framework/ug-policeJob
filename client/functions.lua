@@ -96,7 +96,7 @@ function UgDev.Functions.OpenArmory(station, garage)
                     elements[#elements + 1] = {
                         icon = item.Icon,
                         title = item.Label .. ' - ' .. item.Price .. '€',
-                        item = item.Name,
+                        item = item.Item,
                         type = item.Type,
                         amount = item.Amount,
                         label = item.Label,
@@ -109,13 +109,13 @@ function UgDev.Functions.OpenArmory(station, garage)
                     elements[#elements + 1] = {
                         icon = item.Icon,
                         title = item.Label,
-                        item = item.Name,
+                        item = item.Item,
                         type = item.Type,
                         amount = item.Amount,
                         label = item.Label,
                         grade = item.Grade or 0,
                         priceSystem = armory.UsePrices or false,
-                        price = item.Price or 0,
+                        price = 0,
                         account = armory.Account or 'cash'
                     }
                 end
@@ -125,7 +125,7 @@ function UgDev.Functions.OpenArmory(station, garage)
 
     UgCore.Functions.OpenContextMenu('right', elements, function (menu, element)
         local data = {
-            item = element.weapon,
+            item = element.item,
             label = element.label,
             type = element.type,
             amount = element.amount,
@@ -141,7 +141,7 @@ end
 function UgDev.Functions.GetVehicleSpawnLocation(stationGarage)
     local spawnpoint = nil
 
-    for k, spawnLocation in pairs(stationGarage.Coords.SpawnLocation) do
+    for _, spawnLocation in pairs(stationGarage.Coords.SpawnLocation) do
         if UgCore.Functions.IsSpawnPointClear(spawnLocation, 6.0) then
             spawnpoint = spawnLocation
             break
@@ -190,7 +190,7 @@ function UgDev.Functions.OpenGarage(stationGarage)
                     vehicles[#vehicles + 1] = {
                         icon = vehicle.Icon,
                         title = vehicle.Label,
-                        value = vehicle.Name
+                        value = vehicle.Model
                     }
                 end
             end

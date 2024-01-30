@@ -21,6 +21,9 @@ Language['en'] = {
     ['notification_vehicle_spawned'] = 'You took out a vehicle!',
     ['notification_vehicle_in_spawn_location'] = 'There is a vehicle in the spawn location!',
     
+    -- Text UI --
+    ['textUI_press_to_store_vehicle'] = '[E] - Store Vehicle',
+
     -----------
     -- Menus --
     -----------

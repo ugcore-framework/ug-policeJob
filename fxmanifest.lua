@@ -6,7 +6,7 @@ name 'ug-policeJob'
 description 'Police Job for UgCore by UgDev'
 author 'UgDev'
 version '3.5'
-url 'https://github.com/UgDevOfc/ug-policeJob'
+url 'https://github.com/ugcore-framework/ug-policeJob'
 
 shared_scripts {
     '@ug-core/languages.lua',

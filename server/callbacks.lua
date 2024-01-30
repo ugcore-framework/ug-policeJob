@@ -40,7 +40,7 @@ UgCore.Callbacks.CreateCallback('ug-policeJob:Callback:PurchaseItem', function (
         local canCarryItem = player.Functions.CanCarryItem(data.item, data.amount)
         if canCarryItem then
             if data.priceSystem then
-                if money >= data.Price then
+                if money >= data.price then
                     player.Functions.RemoveMoney(data.account, money, 'Poice Department - Item Purchase')
                     player.Functions.GiveItem(data.item, data.amount)
                     return cb({
@@ -66,7 +66,7 @@ UgCore.Callbacks.CreateCallback('ug-policeJob:Callback:PurchaseItem', function (
         return cb({
             title = 'Police Department',
             description = Languages.GetTranslation('notification_inventory_full'),
-            type = 'success'
+            type = 'error'
         })
     elseif data.type == 'weapon' then
         local hasWeapon = player.Functions.HasWeapon(data.item)

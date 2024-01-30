@@ -20,6 +20,20 @@ Config.Stations = {
                 Coords = vector3(440.0441, -975.1539, 31.5221),
                 Target = {
                     Model = 'prop_crt_mon_01',  -- Model of the object to use with target. 
+                },
+                Marker = {
+                    Type = 36,              -- Type of the marker.
+                    DrawDistance = 10.0,    -- Distance to render the marker.
+                    Size = { 
+                        x = 1.5, 
+                        y = 1.5,
+                        z = 0.5 
+                    },
+                    Color = {
+                        r = 50,
+                        g = 50,
+                        b = 204
+                    }
                 }
             }
         },
@@ -27,7 +41,21 @@ Config.Stations = {
             {
                 Radius = 2.5,       -- Radius of the locker zone.
                 Distance = 2.5,     -- Distance to interact with.
-                Coords = vector3(449.8108, -993.3754, 30.6896) 
+                Coords = vector3(449.8108, -993.3754, 30.6896),
+                Marker = {
+                    Type = 36,              -- Type of the marker.
+                    DrawDistance = 10.0,    -- Distance to render the marker.
+                    Size = { 
+                        x = 1.5, 
+                        y = 1.5,
+                        z = 0.5 
+                    },
+                    Color = {
+                        r = 50,
+                        g = 50,
+                        b = 204
+                    }
+                }
             }
         },
         Armory = {
@@ -37,9 +65,23 @@ Config.Stations = {
                 Radius = 2.5,       -- Radius of the armory zone.
                 Distance = 2.5,     -- Distance to interact with.
                 Coords = vector3(452.3931, -980.1600, 30.6896),
+                Marker = {
+                    Type = 21,              -- Type of the marker.
+                    DrawDistance = 10.0,    -- Distance to render the marker.
+                    Size = { 
+                        x = 1.5, 
+                        y = 1.5,
+                        z = 0.5 
+                    },
+                    Color = {
+                        r = 50,
+                        g = 50,
+                        b = 204
+                    }
+                },
                 Items = {
                     { 
-                        Name = 'weapon_combatpistol',   -- Item name.
+                        Item = 'weapon_combatpistol',   -- Item name.
                         Label = 'Combat Pistol',        -- Item label to show.
                         Type = 'weapon',                -- Type of the item (weapon, item).
                         Amount = 1,                     -- Amount to give (Only works if the type is 'item').
@@ -48,7 +90,7 @@ Config.Stations = {
                         Price = 250                     -- Price to purchase.
                     },
                     { 
-                        Name = 'handcuffs',             -- Item name.
+                        Item = 'handcuffs',             -- Item name.
                         Label = 'Handcuffs',            -- Item label to show.
                         Type = 'item',                  -- Type of the item (weapon, item).
                         Amount = 1,                     -- Amount to give (Only works if the type is 'item').
@@ -63,6 +105,36 @@ Config.Stations = {
             {
                 Radius = 2.5,       -- Radius of the armory zone.
                 Distance = 2.5,     -- Distance to interact with.
+                Markers = {
+                    Spawner = {
+                        Type = 36,              -- Type of the marker.
+                        DrawDistance = 10.0,    -- Distance to render the marker.
+                        Size = { 
+                            x = 1.5, 
+                            y = 1.5,
+                            z = 0.5 
+                        },
+                        Color = {
+                            r = 50,
+                            g = 50,
+                            b = 204
+                        }
+                    },
+                    ReturnVehicle = {
+                        Type = 36,              -- Type of the marker.
+                        DrawDistance = 10.0,    -- Distance to render the marker.
+                        Size = { 
+                            x = 1.5, 
+                            y = 1.5,
+                            z = 0.5 
+                        },
+                        Color = {
+                            r = 255,
+                            g = 0,
+                            b = 0
+                        }
+                    }
+                },
                 Coords = {
                     Spawner = {
                         vector3(459.2113, -1008.0058, 28.2590)
@@ -89,21 +161,21 @@ Config.Stations = {
                 },
                 Vehicles = {
                     {
-                        Name = 'police',                -- Name of the vehicle (spawn code).
+                        Model = 'police',               -- Name of the vehicle (spawn code).
                         Label = 'Patrol Vehicle',       -- Label of the uniform.
                         Icon = 'fas fa-car',            -- Icon in the menu.
                         Category = 'vehicle',           -- Category of the clothes.
                         Grade = 0,                      -- Grade required to equip this uniform.
                     },
                     {
-                        Name = 'police2',               -- Name of the vehicle (spawn code).
+                        Model = 'police2',              -- Name of the vehicle (spawn code).
                         Label = 'Patrol Vehicle #2',    -- Label of the uniform.
                         Icon = 'fas fa-car',            -- Icon in the menu.
                         Category = 'vehicle',           -- Category of the clothes.
                         Grade = 0,                      -- Grade required to equip this uniform.
                     },
                     {
-                        Name = 'riot',                  -- Name of the vehicle (spawn code).
+                        Model = 'riot',                 -- Name of the vehicle (spawn code).
                         Label = 'Armored Vehicle',      -- Label of the uniform.
                         Icon = 'fas fa-truck',          -- Icon in the menu.
                         Category = 'special',           -- Category of the clothes.
