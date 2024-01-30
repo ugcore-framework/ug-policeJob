@@ -18,9 +18,9 @@ function UgDev.Functions.SetUniform(uniform, station)
                 local uniformObject = v.Uniform[sex]
 		        if uniformObject and type(uniformObject) ~= 'nil' then
 		        	TriggerEvent('ug-skinChanger:LoadClothes', skin, uniformObject)
-                    UgCore.Functions.Notify('Police Department', Languages.GetTranslation('notification_changed_outfit'), 'success', 5000)
+                    UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_changed_outfit'), 'success', 5000)
 		        else
-		        	UgCore.Functions.Notify('Police Department', Languages.GetTranslation('notification_no_outfit'), 'error', 5000)
+		        	UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_no_outfit'), 'error', 5000)
 		        end
             end)
         end
@@ -69,7 +69,7 @@ function UgDev.Functions.OpenLocker(station)
         else
             UgCore.Callbacks.TriggerCallback('ug-skin:GetPlayerSkin', function (skin)
                 TriggerEvent('ug-skinChanger:LoadSkin', skin)
-                UgCore.Functions.Notify('Police Department', Languages.GetTranslation('notification_changed_outfit'), 'success', 5000)
+                UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_changed_outfit'), 'success', 5000)
             end)
         end
     end)
@@ -81,7 +81,7 @@ function UgDev.Functions.PurchaseItem(data)
     end, data)
 end
 
-function UgDev.Functions.OpenArmory(station)
+function UgDev.Functions.OpenArmory(station, garage)
     local playerData = UgCore.Functions.GetPlayerData()
     local grade = playerData.job.grade
     
@@ -135,5 +135,69 @@ function UgDev.Functions.OpenArmory(station)
             account = element.account
         }
         UgDev.Functions.PurchaseItem(data)
+    end)
+end
+
+function UgDev.Functions.GetVehicleSpawnLocation(stationGarage)
+    local spawnpoint = nil
+
+    for k, spawnLocation in pairs(stationGarage.Coords.SpawnLocation) do
+        if UgCore.Functions.IsSpawnPointClear(spawnLocation, 6.0) then
+            spawnpoint = spawnLocation
+            break
+        end
+    end
+    return spawnpoint
+end
+
+function UgDev.Functions.SpawnVehicle(vehicle, stationGarage)
+    local playerPed = PlayerPedId()
+    local spawnLocation = UgDev.Functions.GetVehicleSpawnLocation(stationGarage)
+    if spawnLocation then
+        UgCore.Functions.CreateVehicle(vehicle, spawnLocation, spawnLocation.w, function (veh)
+            SetPedIntoVehicle(playerPed, veh, -1)
+            UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_vehicle_spawned'), 'success', 5000)
+        end)
+    else
+        UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_vehicle_in_spawn_location'), 'error', 5000)
+    end
+end
+
+function UgDev.Functions.OpenGarage(stationGarage)
+    local playerData = UgCore.Functions.GetPlayerData()
+    local grade = playerData.job.grade
+    
+    local elements = {
+        { unselectable = true, icon = 'fas fa-warehouse', title = Languages.GetTranslation('menu_garage_title') }
+    }
+
+    for _, category in pairs(stationGarage.Categories) do
+        elements[#elements + 1] = {
+            icon = category.Icon,
+            title = category.Label,
+            value = category.Name
+        }
+    end
+
+    UgCore.Functions.OpenContextMenu('right', elements, function (menu, element)
+        local vehicles = {
+            { unselectable = true, icon = element.icon, title = element.title }
+        }
+
+        for _, vehicle in pairs(stationGarage.Vehicles) do
+            if vehicle.Category and vehicle.Category == element.value then
+                if vehicle.Grade and vehicle.Grade <= grade then
+                    vehicles[#vehicles + 1] = {
+                        icon = vehicle.Icon,
+                        title = vehicle.Label,
+                        value = vehicle.Name
+                    }
+                end
+            end
+        end
+        UgCore.Functions.OpenContextMenu('right', vehicles, function (menu, element)
+            UgCore.Functions.CloseContextMenu()
+            UgDev.Functions.SpawnVehicle(element.value, stationGarage)
+        end)
     end)
 end

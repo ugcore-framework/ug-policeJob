@@ -61,9 +61,56 @@ Config.Stations = {
         },
         Garages = {
             {
-
+                Radius = 2.5,       -- Radius of the armory zone.
+                Distance = 2.5,     -- Distance to interact with.
+                Coords = {
+                    Spawner = {
+                        vector3(459.2113, -1008.0058, 28.2590)
+                    },
+                    SpawnLocation = {
+                        vector4(444.9496, -1017.9050, 28.6263, 89.3090)
+                    },
+                    ReturnVehicle = {
+                        vector3(463.6954, -1014.9435, 28.0742),
+                        vector3(463.7283, -1019.3928, 28.1030)
+                    }
+                },
+                Categories = {
+                    {
+                        Name = 'vehicle',
+                        Label = 'Patrol Vehicles',
+                        Icon = 'fas fa-car'
+                    },
+                    {
+                        Name = 'special',
+                        Label = 'Special Vehicles',
+                        Icon = 'fas fa-truck'
+                    }
+                },
+                Vehicles = {
+                    {
+                        Name = 'police',                -- Name of the vehicle (spawn code).
+                        Label = 'Patrol Vehicle',       -- Label of the uniform.
+                        Icon = 'fas fa-car',            -- Icon in the menu.
+                        Category = 'vehicle',           -- Category of the clothes.
+                        Grade = 0,                      -- Grade required to equip this uniform.
+                    },
+                    {
+                        Name = 'police2',               -- Name of the vehicle (spawn code).
+                        Label = 'Patrol Vehicle #2',    -- Label of the uniform.
+                        Icon = 'fas fa-car',            -- Icon in the menu.
+                        Category = 'vehicle',           -- Category of the clothes.
+                        Grade = 0,                      -- Grade required to equip this uniform.
+                    },
+                    {
+                        Name = 'riot',                  -- Name of the vehicle (spawn code).
+                        Label = 'Armored Vehicle',      -- Label of the uniform.
+                        Icon = 'fas fa-truck',          -- Icon in the menu.
+                        Category = 'special',           -- Category of the clothes.
+                        Grade = 2,                      -- Grade required to equip this uniform.
+                    }
+                }
             }
-            
         },
         Uniforms = {
             Categories = {

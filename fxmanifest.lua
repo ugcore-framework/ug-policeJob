@@ -19,8 +19,8 @@ client_scripts {
     'client/functions.lua',
     'client/events.lua',
     'client/threads.lua',
-    'client/modules/targets.lua',
-    'client/modules/trackers.lua'
+    'client/plugins/target.lua',
+    'client/plugins/blip.lua'
 }
 
 server_scripts {

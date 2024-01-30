@@ -86,9 +86,9 @@ if Config.UseTarget then
                         UgCore.Callbacks.TriggerCallback('ug-policeJob:Callback:ToggleDuty', function (cb)
                             if cb then
                                 if string.match(cb.name, 'off') then
-                                    UgCore.Functions.Notify('Police Department', Languages.GetTranslation('notification_on_duty'), 'success', 5000)    
+                                    UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_on_duty'), 'success', 5000)    
                                 else
-                                    UgCore.Functions.Notify('Police Department', Languages.GetTranslation('notification_off_duty'), 'error', 5000)    
+                                    UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_off_duty'), 'error', 5000)    
                                 end
                             else return error('cb returned nil') end
                         end)
@@ -156,6 +156,38 @@ if Config.UseTarget then
                 }
             }
             exports['ox_target']:addBoxZone(policeDepartmentArmoryOptions)
+        end
+
+        -- Garages --
+        for garageIndex, garage in pairs(v.Garages) do
+            for _, spawner in pairs(garage.Coords.Spawner) do
+                local policeDepartmentGarageOptions = {
+                    coords = spawner,
+                    radius = garage.Radius,
+                    debug = false,
+                    drawSprite = false,
+                    options = {
+                        {
+                            name = 'ug-policeJob:Target:OpenGarage',
+                            icon = 'fa-solid fa-car',
+                            label = Languages.GetTranslation('target_open_garage'),
+                            distance = garage.Distance,
+                            canInteract = function ()
+                                local playerData = UgCore.Functions.GetPlayerData()
+                                if playerData.job.name == 'police' then
+                                    return true
+                                end
+                                return false
+                            end,
+                            onSelect = function ()
+                                local garage = Config.Stations[k].Garages[garageIndex]
+                                UgDev.Functions.OpenGarage(garage)
+                            end
+                        },
+                    }
+                }
+                exports['ox_target']:addBoxZone(policeDepartmentGarageOptions)
+            end
         end
     end
 end

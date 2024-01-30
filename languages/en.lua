@@ -5,8 +5,10 @@ Language['en'] = {
     ['target_toggle_duty'] = 'Toggle Duty',
     ['target_open_locker'] = 'Open Locker',
     ['target_open_armory'] = 'Open Armory',
+    ['target_open_garage'] = 'Open Garage',
     
     -- Notifications --
+    ['notification_title'] = 'Police Department',
     ['notification_on_duty'] = 'You got on duty!',
     ['notification_off_duty'] = 'You got off duty!',
     ['notification_changed_outfit'] = 'You got dressed up!',
@@ -16,6 +18,8 @@ Language['en'] = {
     ['notification_already_has_item'] = 'You already have a %s in your inventory!',
     ['notification_inventory_full'] = 'You can\'t carry more items in your inventory!',
     ['notification_no_money'] = 'You don\'t have money to buy this!',
+    ['notification_vehicle_spawned'] = 'You took out a vehicle!',
+    ['notification_vehicle_in_spawn_location'] = 'There is a vehicle in the spawn location!',
     
     -----------
     -- Menus --
@@ -27,4 +31,7 @@ Language['en'] = {
 
     -- Armory --
     ['menu_armory_title'] = 'Armory',
+
+    -- Garage --
+    ['menu_garage_title'] = 'Garage',
 }
