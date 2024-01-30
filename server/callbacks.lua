@@ -32,38 +32,74 @@ UgCore.Callbacks.CreateCallback('ug-policeJob:Callback:ToggleDuty', function (so
     end
 end)
 
-UgCore.Callbacks.CreateCallback('ug-policeJob:Callback:PurchaseWeapon', function (source, cb, data)
+UgCore.Callbacks.CreateCallback('ug-policeJob:Callback:PurchaseItem', function (source, cb, data)
     local player = UgCore.Functions.GetPlayer(source)
-    local hasWeapon = player.Functions.HasWeapon(data.weapon)
-    if not hasWeapon then
-        if data.priceSystem then
-            local money = player.Functions.GetMoney(data.account)
-            if money >= data.price then
-                player.Functions.RemoveMoney(data.account, money, 'Police Department - Weapon Purchase')
-                player.Functions.GiveWeapon(data.weapon, 250)
+    local money = player.Functions.GetMoney(data.account)
+    
+    if data.type == 'item' then
+        local canCarryItem = player.Functions.CanCarryItem(data.item, data.amount)
+        if canCarryItem then
+            if data.priceSystem then
+                if money >= data.Price then
+                    player.Functions.RemoveMoney(data.account, money, 'Poice Department - Item Purchase')
+                    player.Functions.GiveItem(data.item, data.amount)
+                    return cb({
+                        title = 'Police Department',
+                        description = Languages.GetTranslation('notification_purchased_item', data.label, data.price),
+                        type = 'success'
+                    })
+                end
                 return cb({
                     title = 'Police Department',
-                    description = Languages.GetTranslation('notification_purchased_weapon', data.label, data.price),
+                    description = Languages.GetTranslation('notification_no_money'),
+                    type = 'error'
+                })
+            else
+                player.Functions.GiveItem(data.item, data.amount)
+                return cb({
+                    title = 'Police Department',
+                    description = Languages.GetTranslation('notification_took_weapon', data.label),
                     type = 'success'
                 })
             end
-            return cb({
-                title = 'Police Department',
-                description = Languages.GetTranslation('notification_no_money'),
-                type = 'error'
-            })
-        else
-            player.Functions.GiveWeapon(data.weapon, 250)
-            return cb({
-                title = 'Police Department',
-                description = Languages.GetTranslation('notification_took_weapon', data.label),
-                type = 'success'
-            })
         end
+        return cb({
+            title = 'Police Department',
+            description = Languages.GetTranslation('notification_inventory_full'),
+            type = 'success'
+        })
+    elseif data.type == 'weapon' then
+        local hasWeapon = player.Functions.HasWeapon(data.item)
+        if not hasWeapon then
+            if data.priceSystem then
+                local money = player.Functions.GetMoney(data.account)
+                if money >= data.price then
+                    player.Functions.RemoveMoney(data.account, money, 'Police Department - Weapon Purchase')
+                    player.Functions.GiveWeapon(data.item, 250)
+                    return cb({
+                        title = 'Police Department',
+                        description = Languages.GetTranslation('notification_purchased_item', data.label, data.price),
+                        type = 'success'
+                    })
+                end
+                return cb({
+                    title = 'Police Department',
+                    description = Languages.GetTranslation('notification_no_money'),
+                    type = 'error'
+                })
+            else
+                player.Functions.GiveWeapon(data.weapon, 250)
+                return cb({
+                    title = 'Police Department',
+                    description = Languages.GetTranslation('notification_took_weapon', data.label),
+                    type = 'success'
+                })
+            end
+        end
+        return cb({
+            title = 'Police Department',
+            description = Languages.GetTranslation('notification_already_has_item', data.label),
+            type = 'error'
+        })
     end
-    return cb({
-        title = 'Police Department',
-        description = Languages.GetTranslation('notification_already_has_weapon', data.label),
-        type = 'error'
-    })
 end)

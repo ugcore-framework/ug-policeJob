@@ -32,21 +32,38 @@ Config.Stations = {
         },
         Armory = {
             {
-                UsePrices = true,   -- Price System
-                Account = 'bank',   -- Account (cash, bank)
-                Radius = 2.5,       -- Radius of the locker zone.
+                UsePrices = true,   -- Use the Price System or not.
+                Account = 'cash',   -- Account to use in the price system (cash, bank).
+                Radius = 2.5,       -- Radius of the armory zone.
                 Distance = 2.5,     -- Distance to interact with.
                 Coords = vector3(452.3931, -980.1600, 30.6896),
-                Weapons = {
+                Items = {
                     { 
-                        Name = 'weapon_combatpistol',   -- Weapon name to show.
-                        Label = 'Combat Pistol',        -- Weapon label to show.
+                        Name = 'weapon_combatpistol',   -- Item name.
+                        Label = 'Combat Pistol',        -- Item label to show.
+                        Type = 'weapon',                -- Type of the item (weapon, item).
+                        Amount = 1,                     -- Amount to give (Only works if the type is 'item').
                         Icon = 'fas fa-gun',            -- Icon to show.
                         Grade = 0,                      -- Grade required to show.
                         Price = 250                     -- Price to purchase.
-                    }
+                    },
+                    { 
+                        Name = 'handcuffs',             -- Item name.
+                        Label = 'Handcuffs',            -- Item label to show.
+                        Type = 'item',                  -- Type of the item (weapon, item).
+                        Amount = 1,                     -- Amount to give (Only works if the type is 'item').
+                        Icon = 'fas fa-handucffs',      -- Icon to show.
+                        Grade = 0,                      -- Grade required to show.
+                        Price = 50                      -- Price to purchase.
+                    },
                 },
             }
+        },
+        Garages = {
+            {
+
+            }
+            
         },
         Uniforms = {
             Categories = {

@@ -75,8 +75,8 @@ function UgDev.Functions.OpenLocker(station)
     end)
 end
 
-function UgDev.Functions.PurchaseWeapon(data)
-    UgCore.Callbacks.TriggerCallback('ug-policeJob:Callback:PurchaseWeapon', function (cb)
+function UgDev.Functions.PurchaseItem(data)
+    UgCore.Callbacks.TriggerCallback('ug-policeJob:Callback:PurchaseItem', function (cb)
         UgCore.Functions.Notify(cb.title, cb.description, cb.type, 5000)
     end, data)
 end
@@ -90,28 +90,32 @@ function UgDev.Functions.OpenArmory(station)
     }
 
     for _, armory in pairs(station.Armory) do
-        for _, weapon in pairs(armory.Weapons) do
-            if weapon.Grade <= grade then
+        for _, item in pairs(armory.Items) do
+            if item.Grade <= grade then
                 if armory.UsePrices then
                     elements[#elements + 1] = {
-                        icon = weapon.Icon,
-                        title = weapon.Label .. ' - ' .. weapon.Price .. '€',
-                        weapon = weapon.Name,
-                        label = weapon.Label,
-                        grade = weapon.Grade or 0,
+                        icon = item.Icon,
+                        title = item.Label .. ' - ' .. item.Price .. '€',
+                        item = item.Name,
+                        type = item.Type,
+                        amount = item.Amount,
+                        label = item.Label,
+                        grade = item.Grade or 0,
                         priceSystem = armory.UsePrices or false,
-                        price = weapon.Price or 0,
+                        price = item.Price or 0,
                         account = armory.Account or 'cash'
                     }
                 else
                     elements[#elements + 1] = {
-                        icon = weapon.Icon,
-                        title = weapon.Label,
-                        weapon = weapon.Name,
-                        label = weapon.Label,
-                        grade = weapon.Grade or 0,
+                        icon = item.Icon,
+                        title = item.Label,
+                        item = item.Name,
+                        type = item.Type,
+                        amount = item.Amount,
+                        label = item.Label,
+                        grade = item.Grade or 0,
                         priceSystem = armory.UsePrices or false,
-                        price = weapon.Price or 0,
+                        price = item.Price or 0,
                         account = armory.Account or 'cash'
                     }
                 end
@@ -121,13 +125,15 @@ function UgDev.Functions.OpenArmory(station)
 
     UgCore.Functions.OpenContextMenu('right', elements, function (menu, element)
         local data = {
-            weapon = element.weapon,
+            item = element.weapon,
             label = element.label,
+            type = element.type,
+            amount = element.amount,
             grade = element.grade,
             priceSystem = element.priceSystem,
             price = element.price,
             account = element.account
         }
-        UgDev.Functions.PurchaseWeapon(data)
+        UgDev.Functions.PurchaseItem(data)
     end)
 end
