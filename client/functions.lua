@@ -59,7 +59,6 @@ function UgDev.Functions.OpenLocker(station)
     end
 
     UgCore.Functions.OpenContextMenu('right', elements, function (menu, element)
-
         if element.value ~= 'citizen' then
             local uniforms = {
                 { unselectable = true, icon = element.icon, title = element.title }
@@ -152,6 +151,8 @@ function UgDev.Functions.OpenArmory(station)
             account = element.account
         }
         UgDev.Functions.PurchaseItem(data)
+    end, function ()
+        UgDev.MenuOpenned = false
     end)
 end
 

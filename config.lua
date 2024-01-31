@@ -22,14 +22,14 @@ Config.Stations = {
         },
         Duty = {
             { 
-                Distance = 2.5,                     -- Distance to interact with.
+                Distance = 2.5,                 -- Distance to interact with.
                 Coords = vector3(440.0941, -975.7230, 30.6896),
                 Target = {
                     Model = 'prop_crt_mon_01',  -- Model of the object to use with target. 
                 },
                 Marker = {
-                    Type = 36,              -- Type of the marker.
-                    DrawDistance = 10.0,    -- Distance to render the marker.
+                    Type = 2,                  -- Type of the marker.
+                    DrawDistance = 10.0,        -- Distance to render the marker.
                     Size = { 
                         x = 1.5, 
                         y = 1.5,
@@ -49,7 +49,7 @@ Config.Stations = {
                 Distance = 2.5,     -- Distance to interact with.
                 Coords = vector3(449.8108, -993.3754, 30.6896),
                 Marker = {
-                    Type = 36,              -- Type of the marker.
+                    Type = 21,              -- Type of the marker.
                     DrawDistance = 10.0,    -- Distance to render the marker.
                     Size = { 
                         x = 1.5, 
