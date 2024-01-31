@@ -10,6 +10,18 @@ function UgDev.Functions.ClearPed(ped)
 	ResetPedMovementClipset(ped, 0)
 end
 
+function UgDev.Functions.ToggleDuty()
+    UgCore.Callbacks.TriggerCallback('ug-policeJob:Callback:ToggleDuty', function (cb)
+        if cb then
+            if string.match(cb.name, 'off') then
+                UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_on_duty'), 'success', 5000)    
+            else
+                UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_off_duty'), 'error', 5000)    
+            end
+        else return error('cb returned nil') end
+    end)
+end
+
 function UgDev.Functions.SetUniform(uniform, station)
     for k, v in pairs(station.Uniforms.Clothes) do
         if uniform == v.Name then
@@ -28,6 +40,7 @@ function UgDev.Functions.SetUniform(uniform, station)
 end
 
 function UgDev.Functions.OpenLocker(station)
+    UgDev.MenuOpenned = true
     local playerPed = PlayerPedId()
     local playerData = UgCore.Functions.GetPlayerData()
     local grade = playerData.job.grade
@@ -46,6 +59,7 @@ function UgDev.Functions.OpenLocker(station)
     end
 
     UgCore.Functions.OpenContextMenu('right', elements, function (menu, element)
+
         if element.value ~= 'citizen' then
             local uniforms = {
                 { unselectable = true, icon = element.icon, title = element.title }
@@ -72,6 +86,8 @@ function UgDev.Functions.OpenLocker(station)
                 UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_changed_outfit'), 'success', 5000)
             end)
         end
+    end, function ()
+        UgDev.MenuOpenned = false
     end)
 end
 
@@ -81,7 +97,8 @@ function UgDev.Functions.PurchaseItem(data)
     end, data)
 end
 
-function UgDev.Functions.OpenArmory(station, garage)
+function UgDev.Functions.OpenArmory(station)
+    UgDev.MenuOpenned = true
     local playerData = UgCore.Functions.GetPlayerData()
     local grade = playerData.job.grade
     
@@ -164,6 +181,7 @@ function UgDev.Functions.SpawnVehicle(vehicle, stationGarage)
 end
 
 function UgDev.Functions.OpenGarage(stationGarage)
+    UgDev.MenuOpenned = true
     local playerData = UgCore.Functions.GetPlayerData()
     local grade = playerData.job.grade
     
@@ -198,6 +216,10 @@ function UgDev.Functions.OpenGarage(stationGarage)
         UgCore.Functions.OpenContextMenu('right', vehicles, function (menu, element)
             UgCore.Functions.CloseContextMenu()
             UgDev.Functions.SpawnVehicle(element.value, stationGarage)
+        end, function ()
+            UgDev.MenuOpenned = false
         end)
+    end, function ()
+        UgDev.MenuOpenned = false
     end)
 end

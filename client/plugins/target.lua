@@ -66,36 +66,26 @@ if Config.UseTarget then
     for k, v in pairs(Config.Stations) do
         
         -- Toggle Duty --
-        for _, location in pairs(v.Duty) do
+        for _, duty in pairs(v.Duty) do
             local policeDepartmentToggleDutyOptions = {
                 {
                     name = 'ug-policeJob:Target:ToggleDuty',
                     icon = 'fa-solid fa-clipboard',
                     label = Languages.GetTranslation('target_toggle_duty'),
-                    distance = location.Distance,
+                    distance = duty.Distance,
                     canInteract = function ()
                         local playerData = UgCore.Functions.GetPlayerData()
-                        for _, job in pairs(location.Jobs) do
-                            if playerData.job.name == job then
-                                return true
-                            end
+                        if playerData.job and (playerData.job.name == 'police' or playerData.job.name == 'offpolice') then
+                            return true
                         end
                         return false
                     end,
                     onSelect = function ()
-                        UgCore.Callbacks.TriggerCallback('ug-policeJob:Callback:ToggleDuty', function (cb)
-                            if cb then
-                                if string.match(cb.name, 'off') then
-                                    UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_on_duty'), 'success', 5000)    
-                                else
-                                    UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_off_duty'), 'error', 5000)    
-                                end
-                            else return error('cb returned nil') end
-                        end)
+                        UgDev.Functions.ToggleDuty()
                     end
                 },
             }
-            exports['ox_target']:addModel(location.Target.Model, policeDepartmentToggleDutyOptions)
+            exports['ox_target']:addModel(duty.Target.Model, policeDepartmentToggleDutyOptions)
         end
 
         -- Lockers --
@@ -159,7 +149,7 @@ if Config.UseTarget then
         end
 
         -- Garages --
-        for garageIndex, garage in pairs(v.Garages) do
+        for _, garage in pairs(v.Garages) do
             for _, spawner in pairs(garage.Coords.Spawner) do
                 local policeDepartmentGarageOptions = {
                     coords = spawner,
@@ -180,7 +170,6 @@ if Config.UseTarget then
                                 return false
                             end,
                             onSelect = function ()
-                                local garage = Config.Stations[k].Garages[garageIndex]
                                 UgDev.Functions.OpenGarage(garage)
                             end
                         },

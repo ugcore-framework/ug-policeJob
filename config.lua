@@ -2,7 +2,7 @@ Config = { }
 
 Config.Language = 'en'
 
-Config.UseTarget = true         -- Switch to false if you don't want to use the eye system. (Requirement: ox-target)
+Config.UseTarget = false         -- Switch to false if you don't want to use the eye system. (Requirement: ox-target)
 
 Config.Items = {
     Handcuffs = {
@@ -22,9 +22,8 @@ Config.Stations = {
         },
         Duty = {
             { 
-                Jobs = { 'police', 'offpolice' },   -- Jobs that can use the duty system.
                 Distance = 2.5,                     -- Distance to interact with.
-                Coords = vector3(440.0441, -975.1539, 31.5221),
+                Coords = vector3(440.0941, -975.7230, 30.6896),
                 Target = {
                     Model = 'prop_crt_mon_01',  -- Model of the object to use with target. 
                 },
@@ -169,24 +168,24 @@ Config.Stations = {
                 Vehicles = {
                     {
                         Model = 'police',               -- Name of the vehicle (spawn code).
-                        Label = 'Patrol Vehicle',       -- Label of the uniform.
+                        Label = 'Patrol Vehicle',       -- Label of the vehicle.
                         Icon = 'fas fa-car',            -- Icon in the menu.
-                        Category = 'vehicle',           -- Category of the clothes.
-                        Grade = 0,                      -- Grade required to equip this uniform.
+                        Category = 'vehicle',           -- Category of the vehicle.
+                        Grade = 0,                      -- Grade required to use this vehicle.
                     },
                     {
                         Model = 'police2',              -- Name of the vehicle (spawn code).
-                        Label = 'Patrol Vehicle #2',    -- Label of the uniform.
+                        Label = 'Patrol Vehicle #2',    -- Label of the vehicle.
                         Icon = 'fas fa-car',            -- Icon in the menu.
-                        Category = 'vehicle',           -- Category of the clothes.
-                        Grade = 0,                      -- Grade required to equip this uniform.
+                        Category = 'vehicle',           -- Category of the vehicle.
+                        Grade = 0,                      -- Grade required to use this vehicle.
                     },
                     {
                         Model = 'riot',                 -- Name of the vehicle (spawn code).
-                        Label = 'Armored Vehicle',      -- Label of the uniform.
+                        Label = 'Armored Vehicle',      -- Label of the vehicle.
                         Icon = 'fas fa-truck',          -- Icon in the menu.
-                        Category = 'special',           -- Category of the clothes.
-                        Grade = 2,                      -- Grade required to equip this uniform.
+                        Category = 'special',           -- Category of the vehicle.
+                        Grade = 2,                      -- Grade required to use this vehicle.
                     }
                 }
             }

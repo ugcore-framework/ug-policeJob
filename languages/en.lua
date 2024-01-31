@@ -23,8 +23,12 @@ Language['en'] = {
     ['notification_vehicle_stored'] = 'You returned the vehicle to the garage!',
     
     -- Text UI --
+    ['textUI_press_to_toggle_duty'] = '[E] - Toggle Duty',
+    ['textUI_press_to_open_locker'] = '[E] - Open Locker',
+    ['textUI_press_to_open_armory'] = '[E] - Open Armory',
+    ['textUI_press_to_open_garage'] = '[E] - Open Garage',
     ['textUI_press_to_store_vehicle'] = '[E] - Store Vehicle',
-
+    
     -----------
     -- Menus --
     -----------
