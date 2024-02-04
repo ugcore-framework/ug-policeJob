@@ -20,7 +20,8 @@ client_scripts {
     'client/events.lua',
     'client/threads.lua',
     'client/plugins/target.lua',
-    'client/plugins/blip.lua'
+    'client/plugins/blip.lua',
+    'client/plugins/menu.lua'
 }
 
 server_scripts {
@@ -28,5 +29,6 @@ server_scripts {
     'server/main.lua',
     'server/functions.lua',
     'server/events.lua',
-    'server/callbacks.lua'
+    'server/callbacks.lua',
+    'server/version.lua'
 }

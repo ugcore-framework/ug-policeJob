@@ -1,5 +1,5 @@
-RegisterNetEvent('ug-policeJob:Client:ToggleDuty', function ()
-    TriggerServerEvent('ug-policeJob:Server:ToggleDuty')
-    TriggerServerEvent('ug-policeJob:Server:UpdateCurrentCops')
-    TriggerServerEvent('ug-policeJob:Server:UpdateBlips')
+local UgCore = exports['ug-core']:GetCore()
+
+RegisterNetEvent('ug-policeJob:Client:GetHandcuffed', function (target)
+    
 end)

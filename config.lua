@@ -2,11 +2,12 @@ Config = { }
 
 Config.Language = 'en'
 
-Config.UseTarget = false         -- Switch to false if you don't want to use the eye system. (Requirement: ox-target)
+Config.UseTarget = true         -- Switch to false if you don't want to use the eye system. (Requirement: ox-target)
 
 Config.Items = {
     Handcuffs = {
-        Item = 'handcuffs'
+        Item = 'handcuffs',     -- Item name (same as in the database).
+        Distance = 2.5          -- Distance to use the handcuffs.
     }
 }
 

@@ -4,9 +4,9 @@ if Config.UseTarget then
     -- Player Target Options --
     local playerTargetMenuOptions = {
         {
-            name = 'ug-policeJob:Target:HandcuffPlayer',
+            name = 'ug-policeJob:Target:GetPlayerInformations',
             icon = 'fa-solid fa-handcuffs',
-            label = Languages.GetTranslation('target_handcuff_player'),
+            label = Languages.GetTranslation('target_player_informations'),
             canInteract = function ()
                 local playerData = UgCore.Functions.GetPlayerData()
                 if playerData.job and playerData.job.name == 'police' then
@@ -15,13 +15,13 @@ if Config.UseTarget then
                 return false
             end,
             onSelect = function ()
-                UgCore.Callbacks.TriggerCallback('ug-policeJob:Callback:HasItem', function (cb)
-                    if cb then
-                        UgCore.Functions.Notify('Police', 'Handcuffed the player!', 'success', 5000)
-                    else
-                        UgCore.Functions.Notify('Police', 'You don\'t have handcuffs with you!', 'error', 5000)
-                    end
-                end, Config.Items.Handcuffs.Item)
+                local closestPlayer, closestDistance = UgCore.Functions.GetClosestPlayer()
+                if closestPlayer ~= -1 and closestDistance <= 3.0 then
+                    closestPlayer = GetPlayerServerId(closestPlayer)
+                    UgDev.Functions.HandcuffPlayer(closestPlayer)
+                else
+                    UgCore.Functions.Notify(Languages.GetTranslation('notification_title'), Languages.GetTranslation('notification_no_players_nearby'), 'error', 5000)
+                end
             end
         },
     }

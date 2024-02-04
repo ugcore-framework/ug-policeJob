@@ -21,6 +21,7 @@ Language['en'] = {
     ['notification_vehicle_spawned'] = 'You took out a vehicle!',
     ['notification_vehicle_in_spawn_location'] = 'There is a vehicle in the spawn location!',
     ['notification_vehicle_stored'] = 'You returned the vehicle to the garage!',
+    ['notification_no_handcuffs'] = 'You don\'t have handcuffs with you!',
     
     -- Text UI --
     ['textUI_press_to_toggle_duty'] = '[E] - Toggle Duty',

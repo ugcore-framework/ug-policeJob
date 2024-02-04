@@ -224,3 +224,7 @@ function UgDev.Functions.OpenGarage(stationGarage)
         UgDev.MenuOpenned = false
     end)
 end
+
+function UgDev.Functions.HandcuffPlayer(target)
+    
+end
